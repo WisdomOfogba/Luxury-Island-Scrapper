@@ -5,7 +5,6 @@ import time
 import random
 import os
 
-# Your specific Island URLs
 LOCATIONS = [
     "https://nigeriapropertycentre.com/for-rent/lagos/ikoyi",
     "https://nigeriapropertycentre.com/for-rent/lagos/victoria-island",
@@ -49,7 +48,6 @@ def scrape_luxury_zone():
                     continue
                     
                 soup = BeautifulSoup(response.content, 'html.parser')
-                # Updated container based on your HTML snippet
                 props = soup.find_all('div', class_='wp-block property list') 
                 
                 if not props:
@@ -57,24 +55,19 @@ def scrape_luxury_zone():
                     break
 
                 for p in props:
-                    # 1. Title & URL (from the h3 in wp-block-title)
                     title_tag = p.find('div', class_='wp-block-title').find('h3') if p.find('div', class_='wp-block-title') else None
                     title = title_tag.text.strip() if title_tag else "N/A"
                     
                     url_tag = p.find('div', class_='wp-block-title').find('a') if p.find('div', class_='wp-block-title') else None
                     link = "https://nigeriapropertycentre.com" + url_tag['href'] if url_tag else "N/A"
 
-                    # 2. Location & Description
                     content_div = p.find('div', class_='wp-block-content')
                     location = content_div.find('address').text.strip() if content_div and content_div.find('address') else "N/A"
                     property_type = content_div.find('h4', class_='content-title').text.strip() if content_div and content_div.find('h4', class_='content-title') else "N/A"
 
-                    # 3. Price (Raw text as per project requirements)
                     price_span = content_div.find('span', class_='price') if content_div else None
-                    # Note: We take all text in the price span including the currency symbol
                     price = price_span.parent.text.strip() if price_span else "0"
 
-                    # 4. Amenities (Beds, Baths, Toilets) from aux-info list
                     bed, bath, toilet = 0, 0, 0
                     aux_info = p.find('ul', class_='aux-info')
                     if aux_info:
@@ -97,12 +90,11 @@ def scrape_luxury_zone():
                     })
                 
                 print(f"Page {page} collected {len(props)} listings.")
-                time.sleep(random.uniform(5, 10)) # Safe delay
+                time.sleep(random.uniform(5, 10))
                 
             except Exception as e:
                 print(f"Error on {url}: {e}")
 
-    # 5. Load, Merge, and Deduplicate
     df_new = pd.DataFrame(all_results)
     if os.path.exists(CSV_FILE):
         df_old = pd.read_csv(CSV_FILE)
