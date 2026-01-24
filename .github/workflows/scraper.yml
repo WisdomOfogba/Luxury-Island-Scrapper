@@ -1,5 +1,6 @@
 name: Luxury Island Scraper
 on:
+  push:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
