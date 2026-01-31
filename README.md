@@ -9,7 +9,7 @@ This shows the **Top 10 Business Location** and **The Locations with the highest
 - seaborn
 - matplotlib
 
-### Incase you dont have them istalles yet
+### Incase you dont have them istalled yet
 - clone this repo and run this on your *CLI*
 ```
 pip install -r requirements.txt
