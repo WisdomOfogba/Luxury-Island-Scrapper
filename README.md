@@ -9,12 +9,16 @@ This shows the **Top 10 Business Location** and **The Locations with the highest
 - seaborn
 - matplotlib
 
-### Incase you dont have them istalled yet
+### Incase you don't have them istalled yet
 - clone this repo and run this on your *CLI*
 ```
 pip install -r requirements.txt
 ```
 - Open the `geographic_analysis.ipynb` file and run the notebook
+
+### Details of the Dataset
+- Merged Dataset `./data/Merged_dataset.csv`
+- Cleaned Merged Dataset for Geographical analysis `./data/Cleaned_geographic_dataset.csv`
 
 ## Here are the Graphs from the Analysis
 
